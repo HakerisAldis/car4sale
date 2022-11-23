@@ -7,6 +7,7 @@ use App\Form\NewCityType;
 use App\Repository\CityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -52,6 +53,7 @@ class CityController extends AbstractFOSRestController {
     }
 
     #[Route('/api/city', name: 'app_api_city_new', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(ManagerRegistry $managerRegistry, Request $request): Response
     {
         $city = new City();
@@ -72,6 +74,7 @@ class CityController extends AbstractFOSRestController {
     }
 
     #[Route('/api/city/{id}', name: 'app_api_city_edit', methods: ['PUT'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(int $id, ManagerRegistry $managerRegistry, Request $request): Response
     {
         $city = $this->cityRepository->findOneBy(['id' => $id]);
@@ -95,6 +98,7 @@ class CityController extends AbstractFOSRestController {
     }
 
     #[Route('/api/city/{id}', name: 'app_api_city_remove', methods: ['DELETE'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function remove(int $id, ManagerRegistry $managerRegistry, Request $request): Response
     {
         $city = $this->cityRepository->findOneBy(['id' => $id]);
