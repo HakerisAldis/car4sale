@@ -33,4 +33,4 @@ jobs:
     - name: Install Dependencies
       run: composer install --no-progress
     - name: Deploy to platform.sh
-      run: symfony deploy
+      run: bin/console deploy
