@@ -33,6 +33,9 @@ jobs:
     - name: Install Dependencies
       run: composer install --no-progress -–ignore-platform-reqs
     - name: Create Database
+      run: |
+        mkdir -p data
+        touch data/database.sqlite
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
