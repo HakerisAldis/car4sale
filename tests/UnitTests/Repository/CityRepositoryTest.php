@@ -10,7 +10,7 @@ class CityRepositoryTest extends TestCase
 
     public function testFind()
     {
-        // self::assertTrue(true);
+        self::assertTrue(true);
     }
 
     public function testRemove()
