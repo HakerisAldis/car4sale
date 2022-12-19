@@ -31,16 +31,16 @@ Pardavėjas, norėdamas naudotis šia platforma, prisiregistruos prie internetin
 | Atsakymo kodas | 201 |
 | Galimi klaidų kodai | 409 |
 
-| API metodas | GET |
-| --- | --- |
-| Paskirtis | Naudotojo informacija |
-| Kelias iki metodo (angl. route) | /api/user |
+| API metodas | GET                                                                       |
+| --- |---------------------------------------------------------------------------|
+| Paskirtis | Naudotojo informacija                                                     |
+| Kelias iki metodo (angl. route) | /api/user                                                                 |
 | Užklausos struktūra |
 |
-| Užklausos „Header" dalis | Authorization: „Bearer {token}" |
-| Atsakymo struktūra | {"email": [admin@test.com](mailto:admin@test.com), "roles": ["ROLE\_ADMIN"]} |
-| Atsakymo kodas | 201 |
-| Galimi klaidų kodai | 401 |
+| Užklausos „Header" dalis | Authorization: „Bearer {token}"                                           |
+| Atsakymo struktūra | {"email": "admin@test.com", "roles": ["ROLE\_ADMIN"]}                      |
+| Atsakymo kodas | 201                                                                       |
+| Galimi klaidų kodai | 401                                                                       |
 
 | API metodas | GET |
 | --- | --- |
