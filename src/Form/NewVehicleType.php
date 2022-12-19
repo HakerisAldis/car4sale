@@ -46,6 +46,11 @@ class NewVehicleType extends AbstractType
                     new NotBlank(),
                 ],
             ])
+            ->add('price', NumberType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                ],
+            ])
         ;
     }
 }

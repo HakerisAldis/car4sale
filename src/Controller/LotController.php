@@ -44,7 +44,9 @@ class LotController extends AbstractFOSRestController
                 'address' => $item->getAddress(),
                 'phone' => $item->getPhone(),
                 'maxNumberOfCars' => $item->getMaxNumberOfCars(),
-                'email' => $item->getEmail()
+                'email' => $item->getEmail(),
+                'city' => $item->getCity()->getName(),
+                'cityId' => $item->getCity()->getId(),
             ];
         }
 
@@ -76,6 +78,9 @@ class LotController extends AbstractFOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     * @throws \JsonException
+     */
     #[Route('/lot', name: 'app_api_city_lot_new', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function new(int $cityId, ManagerRegistry $managerRegistry, Request $request): Response
@@ -83,7 +88,7 @@ class LotController extends AbstractFOSRestController
         $lot = new Lot();
 
         $form = $this->createForm(NewLotType::class, $lot);
-        $form->submit($request->request->all());
+        $form->submit(json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR));
         $view = $this->view($form);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -105,6 +110,9 @@ class LotController extends AbstractFOSRestController
         return $this->handleView($view);
     }
 
+    /**
+     * @throws \JsonException
+     */
     #[Route('/lot/{lotId}', name: 'app_api_city_lot_edit', methods: ['PUT'])]
     #[IsGranted('ROLE_ADMIN')]
     public function edit(int $cityId, int $lotId, ManagerRegistry $managerRegistry, Request $request): Response
@@ -116,7 +124,7 @@ class LotController extends AbstractFOSRestController
         }
 
         $form = $this->createForm(NewLotType::class, $lot);
-        $form->submit($request->request->all());
+        $form->submit(json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR));
         $view = $this->view($form);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -127,7 +135,7 @@ class LotController extends AbstractFOSRestController
             }
 
             $entityManager = $managerRegistry->getManager();
-            $entityManager->persist($lot);
+            $entityManager->flush($lot);
 
             $view = $this->view(null, 204);
         }

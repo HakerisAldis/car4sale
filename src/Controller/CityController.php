@@ -52,6 +52,9 @@ class CityController extends AbstractFOSRestController {
         return $this->handleView($view);
     }
 
+    /**
+     * @throws \JsonException
+     */
     #[Route('/api/city', name: 'app_api_city_new', methods: ['POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function new(ManagerRegistry $managerRegistry, Request $request): Response
@@ -59,7 +62,7 @@ class CityController extends AbstractFOSRestController {
         $city = new City();
 
         $form = $this->createForm(NewCityType::class, $city);
-        $form->submit($request->request->all());
+        $form->submit(json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR));
         $view = $this->view($form);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -73,6 +76,9 @@ class CityController extends AbstractFOSRestController {
         return $this->handleView($view);
     }
 
+    /**
+     * @throws \JsonException
+     */
     #[Route('/api/city/{id}', name: 'app_api_city_edit', methods: ['PUT'])]
     #[IsGranted('ROLE_ADMIN')]
     public function edit(int $id, ManagerRegistry $managerRegistry, Request $request): Response
@@ -84,7 +90,7 @@ class CityController extends AbstractFOSRestController {
         }
 
         $form = $this->createForm(NewCityType::class, $city);
-        $form->submit($request->request->all());
+        $form->submit(json_decode($request->getContent(), true, 512, JSON_THROW_ON_ERROR));
         $view = $this->view($form);
 
         if ($form->isSubmitted() && $form->isValid()) {

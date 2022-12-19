@@ -36,6 +36,12 @@ class Vehicle
     #[ORM\JoinColumn(nullable: false)]
     private ?Lot $lot = null;
 
+    #[ORM\Column]
+    private ?int $price = null;
+
+    #[ORM\ManyToOne(inversedBy: 'vehicles')]
+    private ?User $owner = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -128,6 +134,30 @@ class Vehicle
     public function setLot(?Lot $lot): self
     {
         $this->lot = $lot;
+
+        return $this;
+    }
+
+    public function getPrice(): ?int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(int $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
 
         return $this;
     }
